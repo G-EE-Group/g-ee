@@ -1,7 +1,7 @@
 # Grafana - Experts Exchange
 Git Repo for scripts created by members of  the Grafana - Experts Exchange Facebook group.
 
-- Facebook Group: https://facebook.com/
+- Facebook Group: https://facebook.com/groups/grafanaexpertsexchange
 - Discord: https://discord.gg/8y6sndR
 - Community Wiki: https://g-ee.alexsguardian.net
 
