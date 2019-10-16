@@ -12,12 +12,12 @@ Assuming everything is configured properly, when this scripts completes it will 
 
 These files are formatted as InfluxDB import files:
 
-***BEGIN IMPORT FILE***
+BEGIN IMPORT FILE
 # DML\n
 # CONTEXT-DATABASE: telegraf
 
 ATT_Due,host=att value=60.00
-***END IMPORT FILE***
+END IMPORT FILE
 
 Once these files are written to disk, you can use InfluxDB's Import function to put them in the database:
 
