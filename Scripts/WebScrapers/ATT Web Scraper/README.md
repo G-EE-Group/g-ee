@@ -18,9 +18,9 @@ influx -import -path=att_due_date.txt
 
 On Windows systems you will have to convert the file from Windows format to UNIX format using Powershell:
 
-<$original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_amount_due.txt
+$original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_amount_due.txt
 $text = [IO.File]::ReadAllText($original_file) -replace "`r`n", "`n"
-[IO.File]::WriteAllText($original_file, $text)>
+[IO.File]::WriteAllText($original_file, $text)
 
 $original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_data_used.txt
 $text = [IO.File]::ReadAllText($original_file) -replace "`r`n", "`n"
