@@ -7,7 +7,7 @@ import requests
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches",["ignore-certificate-errors"])
 options.add_argument('--disable-gpu')
-# options.add_argument('--headless')
+options.add_argument('--headless')
 driver = webdriver.Chrome(options=options, executable_path=r'C:\chromedriver.exe')
 
 # **************************************************************
