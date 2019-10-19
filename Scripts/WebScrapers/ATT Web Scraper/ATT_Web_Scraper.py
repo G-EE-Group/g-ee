@@ -157,21 +157,21 @@ print("Configuring JSON output")
 # Configure JSON output for InfluxDB
 json_body = [
     {
-        "measurement": "ATT_Due_3",
+        "measurement": "ATT_Due",
         "tags": {
             "host": "AT&T"
         },
         "fields": {
             "value": attAmountDue
         },
-        "measurement": "ATT_Due_Date_3",
+        "measurement": "ATT_Due_Date",
         "tags": {
             "host": "AT&T"
         },
         "fields": {
             "value": attDueDate
         },
-        "measurement": "ATT_Data_Usage_3",
+        "measurement": "ATT_Data_Usage",
         "tags": {
             "host": "AT&T"
         },
