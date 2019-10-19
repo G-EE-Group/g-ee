@@ -1,6 +1,6 @@
 BEFORE RUNNING THIS PYTHON SCRIPT
 
-- Replace fields USERNAME, PASSWORD and ATTACCOUNTNUMBER with the relevant information.
+- Replace fields config.ini: USERNAME, PASSWORD and ACCOUNTNUMBER with the relevant information.
 - You will have to download and specify your Chromedriver physical location on disk (line 14)
 - You will have to install several Python frameworks via PIP (All declared at the top of the file)
 
@@ -16,7 +16,7 @@ influx -import -path=att_amount_due.txt
 influx -import -path=att_data_used.txt
 influx -import -path=att_due_date.txt
 
-On Windows systems you will have to convert the file from Windows format to UNIX format using Powershell:
+On Windows systems you will have to convert the file from Windows format to UNIX format using Powershell before importing into InfluxDB:
 
 $original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_amount_due.txt
 $text = [IO.File]::ReadAllText($original_file) -replace "`r`n", "`n"
