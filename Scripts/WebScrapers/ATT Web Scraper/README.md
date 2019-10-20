@@ -71,6 +71,6 @@ These import files can be used to deposit metrics into InfluxDB via command line
 
 - Add option to configure Chromedriver location in Config.ini
 - Add option to turn on/off headless mode in config.ini
-- Add logging option for isolation and diagnostics and metrics history
+- Add logging option for isolation, diagnostics and metrics history
 
 
