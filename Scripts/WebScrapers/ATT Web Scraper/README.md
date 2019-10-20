@@ -54,6 +54,12 @@ att_amount_due.txt
 att_data_used.txt  
 att_due_date.txt  
   
-These import files can be used to deposit metrics into InfluxDB via command line.
+These import files can be used to deposit metrics into InfluxDB via command line.  
+  
+## Planned features
+
+- Add option to configure Chromedriver location in Config.ini
+- Add option to turn on/off headless mode in config.ini
+- Add logging option for isolation and diagnostics and metrics history
 
 
