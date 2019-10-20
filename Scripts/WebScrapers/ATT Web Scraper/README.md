@@ -26,9 +26,12 @@ In cases where InfluxDB does not require authentication, mark `Authenticate with
 
 NOTE: Leave spaces and line breaks formatted EXACTLY how you see them in config.ini. If these elements are changed this script will not parse the configuration file correctly.
 
-## The Chromdriver is required for this script to run correctly
+## The Chromedriver is required for this script to run correctly
 
 You will need to download the Chromedrive and copy it to the root of your C:\ drive. You can change the location of the Chromedriver within the script at line 13.
+
+Change the file tree location for your Chromedriver executable on line 13:  
+`driver = webdriver.Chrome(options=options, executable_path=r'C:\chromedriver.exe')`
 
 [Download the Chromedriver](https://chromedriver.chromium.org/downloads)
 
