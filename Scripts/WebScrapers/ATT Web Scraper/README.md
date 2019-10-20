@@ -1,31 +1,76 @@
-BEFORE RUNNING THIS PYTHON SCRIPT
+## Overview
 
-- Replace fields config.ini: USERNAME, PASSWORD and ACCOUNTNUMBER with the relevant information.
-- You will have to download and specify your Chromedriver physical location on disk (line 14)
-- You will have to install several Python frameworks via PIP (All declared at the top of the file)
+This script will log into the AT&T website and scrape three metrics:  
 
-Assuming everything is configured properly, when this scripts completes it will create three files within the directory that the script was run from:
+- Amount Due  
+- Date Due  
+- Data Usage 
 
-- att_amount_due.txt
-- att_data_used.txt
-- att_due_date.txt
+And then deposit these metrics into InfluxDB via the InfluxDB API.
 
-Once these files are written to disk, you can use InfluxDB's Import function to put them in the database:
+This script applies to AT&T home internet users. It may work under business AT&T accounts but I haven't tested it.
 
-influx -import -path=att_amount_due.txt
-influx -import -path=att_data_used.txt
-influx -import -path=att_due_date.txt
+## Open config.ini to edit configuration:
 
-On Windows systems you will have to convert the file from Windows format to UNIX format using Powershell before importing into InfluxDB:
+AT&T Username = USERNAME  
+AT&T Password = PASSWORD  
+AT&T Account Number = ATTACCTNUMBER  
+InfluxDB Host IP Address: INFLUXDBHOSTIP  
+InfluxDB Host Port: 8086  
+Database Name: telegraf  
+Authenticate With Influx?: true  
+InfluxDB Username: USERNAME  
+InfluxDB Password: PASSWORD  
 
-$original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_amount_due.txt
-$text = [IO.File]::ReadAllText($original_file) -replace "`r`n", "`n"
-[IO.File]::WriteAllText($original_file, $text)
+In cases where InfluxDB does not require authentication, mark `Authenticate with influx?` as `false` leave `InfluxDB Username` and `InfluxDB Password` alone.
 
-$original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_data_used.txt
-$text = [IO.File]::ReadAllText($original_file) -replace "`r`n", "`n"
-[IO.File]::WriteAllText($original_file, $text)
+NOTE: Leave spaces and line breaks formatted EXACTLY how you see them in config.ini. If these elements are changed this script will not parse the configuration file correctly.  
 
-$original_file ='C:\Users\Cameron\Documents\influxdb-1.7.3-1\att_due_date.txt
-$text = [IO.File]::ReadAllText($original_file) -replace "`r`n", "`n"
-[IO.File]::WriteAllText($original_file, $text)
+## Python library installation
+
+You can use the requirements.txt to import the necessary Python libraries, or you can use Pip to install the libraries manually:  
+
+pip install selenium  
+pip install bs4  
+pip install html5lib  
+pip install time  
+pip install requests  
+pip install influxdb  
+
+## Chromedriver is required for this script to run correctly
+
+You will need to download Chromedrive and copy it to the root of your C:\ drive. You can change the location of Chromedriver within the script at line 13.
+
+Change the file tree location for your Chromedriver executable on line 13:  
+`driver = webdriver.Chrome(options=options, executable_path=r'C:\chromedriver.exe')`
+
+[Download the Chromedriver](https://chromedriver.chromium.org/downloads)
+
+## Disable Chromedriver headless mode
+
+By default this script runs Chromedriver in headless mode, meaning you will NOT see Chrome pop up when the script is run. If you want to see Chromedriver visually run on your screen while it's pulling metrics, comment out line 12 of the script by putting a hashtag and a space before the line:
+
+From this:  
+`options.add_argument('--headless')`  
+  
+To this:  
+`# options.add_argument('--headless')`  
+
+
+## Enable output of InfluxDB import files
+
+Uncomment lines 132 through 146 to enable this script to output InfluxDB import files. When the script fires it will now write three files to the directory from which the script was run:
+
+att_amount_due.txt  
+att_data_used.txt  
+att_due_date.txt  
+  
+These import files can be used to deposit metrics into InfluxDB via command line.  
+  
+## Planned features
+
+- Add option to configure Chromedriver location in Config.ini
+- Add option to turn on/off headless mode in config.ini
+- Add logging option for isolation, diagnostics and metrics history
+
+
