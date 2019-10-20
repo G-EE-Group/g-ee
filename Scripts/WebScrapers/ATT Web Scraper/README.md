@@ -1,5 +1,7 @@
 # Configuration
 
+## Open config.ini to edit configuration:
+
 AT&T Username = USERNAME  
 AT&T Password = PASSWORD  
 AT&T Account Number = ATTACCTNUMBER  
