@@ -11,6 +11,6 @@ InfluxDB Username: USERNAME
 InfluxDB Password: PASSWORD
 
 I think you should use an
-`<addr>` element here instead.
+`<addr>` element here instead
 
 
