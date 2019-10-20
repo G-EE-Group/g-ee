@@ -6,7 +6,7 @@ Amount Due
 Date Due  
 Data Usage 
 
-And them deposit these metrics into InfluxDB via the InfluxDB API.
+And then deposit these metrics into InfluxDB via the InfluxDB API.
 
 This script applies to AT&T home internet users only.
 
@@ -37,9 +37,9 @@ You will need to download the Chromedrive and copy it to the root of your C:\ dr
 By default this script runs the Chromedriver in headless mode, meaning you will NOT see Chrome pop up when the script is run. If you want to see the Chromedriver visually run on your screen while it's pulling metrics, comment out line 12 of the script by putting a hashtag and a space before the line:
 
 From this:  
-`options.add_argument('--headless')`
+`options.add_argument('--headless')`  
 To this:  
-`# options.add_argument('--headless')`
+`# options.add_argument('--headless')`  
 
 
 ## Enable output of InfluxDB import files
