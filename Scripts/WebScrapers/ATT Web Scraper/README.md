@@ -1,4 +1,4 @@
-#Configuration
+# Configuration
 
 - Replace fields config.ini: USERNAME, PASSWORD and ACCOUNTNUMBER with the relevant information.
 - You will have to download and specify your Chromedriver physical location on disk (line 14)
