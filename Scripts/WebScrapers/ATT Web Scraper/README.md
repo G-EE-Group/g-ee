@@ -8,7 +8,7 @@ Data Usage
 
 And then deposit these metrics into InfluxDB via the InfluxDB API.
 
-This script applies to AT&T home internet users only.
+This script applies to AT&T home internet users. It may work under business AT&T accounts but I haven't tested it.
 
 ## Open config.ini to edit configuration:
 
