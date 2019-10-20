@@ -41,6 +41,7 @@ By default this script runs Chromedriver in headless mode, meaning you will NOT 
 
 From this:  
 `options.add_argument('--headless')`  
+  
 To this:  
 `# options.add_argument('--headless')`  
 
