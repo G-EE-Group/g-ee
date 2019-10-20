@@ -48,10 +48,12 @@ To this:
 
 ## Enable output of InfluxDB import files
 
-Uncomment lines 132 through 146 to enable this script to output InfluxDB import files. Once this is done, when the script fires it will write three files to the directory from which the script was run:
+Uncomment lines 132 through 146 to enable this script to output InfluxDB import files. When the script fires it will now write three files to the directory from which the script was run:
 
 att_amount_due.txt  
-att_data_used.txt
-att_due_date.txt
+att_data_used.txt  
+att_due_date.txt  
+  
+These import files can be used to deposit metrics into InfluxDB via command line.
 
 
