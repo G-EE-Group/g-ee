@@ -1,6 +1,7 @@
 # Configuration
 
 AT&T Username = USERNAME
+
 AT&T Password = PASSWORD
 AT&T Account Number = ATTACCTNUMBER
 InfluxDB Host IP Address: INFLUXDBHOSTIP
