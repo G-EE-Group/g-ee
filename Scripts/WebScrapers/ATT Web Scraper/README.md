@@ -24,7 +24,18 @@ InfluxDB Password: PASSWORD
 
 In cases where InfluxDB does not require authentication, mark `Authenticate with influx?` as `false` leave `InfluxDB Username` and `InfluxDB Password` alone.
 
-NOTE: Leave spaces and line breaks formatted EXACTLY how you see them in config.ini. If these elements are changed this script will not parse the configuration file correctly.
+NOTE: Leave spaces and line breaks formatted EXACTLY how you see them in config.ini. If these elements are changed this script will not parse the configuration file correctly.  
+
+## Python library installation
+
+You can use the requirements.txt to import the necessary Python libraries, or you can use Pip to install the libraries manually:  
+
+pip install selenium  
+pip install bs4  
+pip install html5lib  
+pip install time  
+pip install requests  
+pip install influxdb  
 
 ## Chromedriver is required for this script to run correctly
 
