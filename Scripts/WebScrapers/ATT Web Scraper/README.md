@@ -22,7 +22,7 @@ Authenticate With Influx?: true
 InfluxDB Username: USERNAME  
 InfluxDB Password: PASSWORD  
 
-In cases where InfluxDB does not require authentication, mark `Authenticate with infulx?` as `false` leave `InfluxDB Username` and `InfluxDB Password` alone.
+In cases where InfluxDB does not require authentication, mark `Authenticate with influx?` as `false` leave `InfluxDB Username` and `InfluxDB Password` alone.
 
 NOTE: Leave spaces and line breaks formatted EXACTLY how you see them in config.ini. If these elements are changed this script will not parse the configuration file correctly.
 
