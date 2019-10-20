@@ -2,9 +2,9 @@
 
 This script will log into the AT&T website and scrape three metrics:  
 
-Amount Due  
-Date Due  
-Data Usage 
+- Amount Due  
+- Date Due  
+- Data Usage 
 
 And then deposit these metrics into InfluxDB via the InfluxDB API.
 
