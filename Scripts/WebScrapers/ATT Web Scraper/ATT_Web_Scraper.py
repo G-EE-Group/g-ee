@@ -12,14 +12,21 @@ import html5lib
 import time
 import requests
 from influxdb import InfluxDBClient
+import logging
+from selenium.webdriver.remote.remote_connection import LOGGER
 
+logging.basicConfig(filename='scraper.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filemode='w')
+LOGGER.setLevel(logging.WARNING)
+
+logging.info('*********************BEGIN SCRAPING PROCESS.*********************')
+logging.info('Setting config.ini as source config.')
 # Read configuration file
 mylines = []
-with open ('config.ini', 'rt') as myfile:
+with open('config.ini', 'rt') as myfile:
     for myline in myfile:
         mylines.append(myline)
 
-# Define config.ini lines and declare variables
+logging.info('Setting config.ini lines as individual variables.')
 ATT_Username = (mylines[0])
 ATT_Password = (mylines[1])
 ATT_Account_Number = (mylines[2])
@@ -32,7 +39,7 @@ InfluxDB_Password = (mylines[8])
 Chromedriver_Location = (mylines[9])
 Chromedriver_State_Headless = (mylines[10])
 
-# Strip variable of extraneous text
+logging.info('Reading config.ini variables.')
 Chromedriver_State_Headless = Chromedriver_State_Headless.replace('Run Chromedriver in headless mode?: ', '')
 Chromedriver_State_Headless = Chromedriver_State_Headless.replace('\n', '')
 Chromedriver_State_Headless = Chromedriver_State_Headless.replace('\t', '')
@@ -64,6 +71,7 @@ Chromedriver_Location = ('"' + Chromedriver_Location + '"')
 print("Chromedriver location: " + Chromedriver_Location)
 print("Chrome state headless?: " + Chromedriver_State_Headless)
 
+logging.info('Checking if InfluxDB authentication is required.')
 # Check if InfluxDB authentication is required
 if Authenticate == "true":
     InfluxDB_Username = InfluxDB_Username.replace('InfluxDB Username: ', '')
@@ -78,6 +86,7 @@ elif Authenticate == "false":
     InfluxDB_Password = ''
     print("This server DOES NOT require authentication.")
 
+logging.info('Declaring webdriver options.')
 # Declare webdriver options
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["ignore-certificate-errors"])
@@ -91,6 +100,11 @@ print("Webdriver options declared")
 print(Chromedriver_State_Headless)
 print(driver)
 
+logging.info("VARIABLES: " + "username: " + ATT_Username + ", password redacted, " + "AT&T account number: " + ATT_Account_Number + ","
+    " Influx host IP: " + InfluxDB_IP_Address + ", Influx port number: " + InfluxDB_Port_Number + ", using database: "
+    + Database_Name + ", InfluxDB username: " + InfluxDB_Username + ", password redacted" + ", authentication? " +
+    Authenticate + ", Chromedriver location: " + Chromedriver_Location)
+
 # Print config file variables
 print("AT&T username: " + ATT_Username)
 print("AT&T password redacted for security")
@@ -103,45 +117,60 @@ print("InfluxDB password redacted for security")
 print("Using authentication? " + Authenticate)
 print("Chromedriver located: " + Chromedriver_Location)
 
+logging.info('Navigating to AT&T website.')
 # Log into and scrape the AT&T website
 driver.implicitly_wait(10)
 driver.get("https://www.att.com/my/")
 print("Navigated to https://www.att.com/my/")
 
+
+logging.info('Waiting for page to load.')
 print("Waiting for page to load.")
 time.sleep(10)
 username = driver.find_element_by_id("userName")
+logging.info('username located.')
 print("username located")
 password = driver.find_element_by_id("password")
+logging.info('password located.')
 print("password located")
 username.send_keys(ATT_Username)
+logging.info('username entered.')
 print("username entered")
 time.sleep(1)
 password.send_keys(ATT_Password)
+logging.info('password entered.')
 print("password entered")
 time.sleep(1)
 driver.find_element_by_id("loginButton-lgwgLoginButton").click()
+logging.info('login button clicked.')
 print("Login button clicked")
 print("Waiting for page to load.")
 time.sleep(10)
 elementAttDueDate= driver.find_element_by_xpath("/html/body/div[1]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/p[2]/span")
 attDueDate = elementAttDueDate.text
 attDueDate = attDueDate.replace('Pay by ', '')
+logging.info("Due date extracted from web page: " + attDueDate)
 print("Due date extracted from web page: " + attDueDate)
 driver.get("https://www.att.com/olam/passthroughAction.myworld?actionType=UsageLanding&selectedBan=" + ATT_Account_Number)
+logging.info('Navigated to bill page.')
 print("navigating to bill page")
+logging.info('Waiting for page to load.')
 print("Waiting for page to load.")
 time.sleep(10)
 innerHTML = driver.execute_script("return document.body.innerHTML")
+logging.info('Extracted HTML body.')
 print("Extracted HTML body.")
 time.sleep(3)
 driver.find_element_by_xpath("//*[@id='divShortcut']/div[1]").click()
+logging.info('Clicked Date Select drop down menu.')
 print("Clicked Date Select drop down menu.")
 time.sleep(3)
 driver.find_element_by_xpath("//*[@id='RecentUnbilled']/div[2]/a").click()
+logging.info('Clicked "To present" in Date Selection dropdown menu.')
 print("Clicked 'To present' in Date Selection dropdown menu.")
 
 print("Formatting variables for Influx.")
+logging.info('Formatting variables for Influx.')
 soup = BeautifulSoup(innerHTML, 'html.parser')
 time.sleep(1)
 elementAttAmountDue= driver.find_element_by_xpath("//*[@id='content']/div[3]/div[1]/div[2]/span")
@@ -151,6 +180,7 @@ attBandwidthUsed = elementAttBandwidthUsed.text
 
 attAmountDue = attAmountDue.replace('$', '')
 
+logging.info("METRICS EXTRACTED: ""Amount due: " + attAmountDue + " Data quota used: " + attBandwidthUsed + " Due date: " + attDueDate)
 print("Amount due: " + attAmountDue)
 print("Data quota used: " + attBandwidthUsed)
 print("Due date: " + attDueDate)
@@ -172,6 +202,7 @@ print("Due date: " + attDueDate)
 # f2.writelines([line1, line2, line3, line4, line5, line8, line7])
 # f3.writelines([line1, line2, line3, line4, line5, line9, line7])
 
+logging.info('Converting strings to integers.')
 print("Converting strings to integers.")
 
 attAmountDue = attAmountDue[:attAmountDue.index('.')]
@@ -180,10 +211,7 @@ attAmountDue = int(attAmountDue)
 attBandwidthUsed = attBandwidthUsed[:attBandwidthUsed.index('.')]
 attBandwidthUsed = int(attBandwidthUsed)
 
-print(attAmountDue)
-print(attBandwidthUsed)
-print(attDueDate)
-
+logging.info('Configuring JSON output.')
 print("Configuring JSON output")
 # Configure JSON output for InfluxDB
 json_body_1 = [
@@ -221,15 +249,20 @@ json_body_3 = [
 ]
 
 # Post metrics to InfluxDB API
+logging.info('Connecting to InfluxDB API.')
 print("Connecting to InfluxDB API")
 client = InfluxDBClient(InfluxDB_IP_Address, InfluxDB_Port_Number, InfluxDB_Username, InfluxDB_Password, Database_Name)
+logging.info('Sending JSON metrics')
+print('Sending JSON metrics')
 client.write_points(json_body_1)
 client.write_points(json_body_2)
 client.write_points(json_body_3)
 result = client.query('select value from ATT_Bandwidth_Used;')
 
+logging.info('InfluxAPI request sent and accepted.')
 print("InfluxAPI request sent and accepted.")
+logging.info('Job complete.')
 print("Job complete.")
 
 driver.quit()
-
+logging.info('Job quit.')
