@@ -21,8 +21,8 @@ Database Name: telegraf
 Authenticate With Influx?: true  
 InfluxDB Username: USERNAME  
 InfluxDB Password: PASSWORD  
-
-In cases where InfluxDB does not require authentication, mark `Authenticate with influx?` as `false` leave `InfluxDB Username` and `InfluxDB Password` alone.
+Chromedriver location: C:\chromedriver.exe  
+Run Chromedriver is headless mode?: true  
 
 NOTE: Leave spaces and line breaks formatted EXACTLY how you see them in config.ini. If these elements are changed this script will not parse the configuration file correctly.  
 
@@ -39,23 +39,9 @@ pip install influxdb
 
 ## Chromedriver is required for this script to run correctly
 
-You will need to download Chromedrive and copy it to the root of your C:\ drive. You can change the location of Chromedriver within the script at line 13.
-
-Change the file tree location for your Chromedriver executable on line 13:  
-`driver = webdriver.Chrome(options=options, executable_path=r'C:\chromedriver.exe')`
+You will need to download Chromedrive and copy it to the root of your C:\ drive. You can change the location of Chromedriver within the config file under the option "Chromedriver location".
 
 [Download Chromedriver from the Chromium Project](https://chromedriver.chromium.org/downloads)
-
-## Disable Chromedriver headless mode
-
-By default this script runs Chromedriver in headless mode, meaning you will NOT see Chrome pop up when the script is run. If you want to see Chromedriver visually run on your screen while it's pulling metrics, comment out line 12 of the script by putting a hashtag and a space before the line:
-
-From this:  
-`options.add_argument('--headless')`  
-  
-To this:  
-`# options.add_argument('--headless')`  
-
 
 ## Enable output of InfluxDB import files
 
@@ -69,10 +55,9 @@ These import files can be used to deposit metrics into InfluxDB via command line
   
 ## Planned features
 
-- Add option to configure Chromedriver location in Config.ini
-- Add option to turn on/off headless mode in config.ini
 - Add logging option for isolation, diagnostics and metrics history
-- Toggle output to InfluxDB API -OR- InfluxDB import text files
-- Add option to e-mail metrics to e-mail address
+- Add option to turn on/off e-mail metrics to e-mail address
+- Add option to turn on/off send metrics to InfluxDB API
+- Add option to turn on/off output metrics to InfluxDB test import files
 
 
