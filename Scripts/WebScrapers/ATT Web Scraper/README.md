@@ -57,15 +57,15 @@ These import files can be used to deposit metrics into InfluxDB via command line
 
 Current log output to scraper.log is at level "INFO". To change this setting, go into the script and on lines 18 and 19 adjust the following (Depending on what logging level you need):  
 
-Line 18: `level=logging.INFO`
-To:
-Line 18: `level=logging.DEBUG`, or `level=logging.WARNING`, or `level=logging.ERROR`, or `level=logging.FATAL`
+Line 18: `level=logging.INFO`  
+To:  
+Line 18: `level=logging.DEBUG`, or `level=logging.WARNING`, or `level=logging.ERROR`, or `level=logging.FATAL`  
 
-And change:
+And change:  
 
-Line 19: `LOGGER.setLevel(logging.WARNING)`
-To:
-`LOGGER.setLevel(logging.DEBUG)` or, `LOGGER.setLevel(logging.INFO)` or, `LOGGER.setLevel(logging.ERROR)`, or `LOGGER.setLevel(logging.FATAL)`
+Line 19: `LOGGER.setLevel(logging.WARNING)`  
+To:  
+`LOGGER.setLevel(logging.DEBUG)` or, `LOGGER.setLevel(logging.INFO)` or, `LOGGER.setLevel(logging.ERROR)`, or `LOGGER.setLevel(logging.FATAL)`  
 
 ## Planned features
 
