@@ -58,6 +58,6 @@ These import files can be used to deposit metrics into InfluxDB via command line
 - Add logging option for isolation, diagnostics and metrics history
 - Add option to turn on/off e-mail metrics to e-mail address
 - Add option to turn on/off send metrics to InfluxDB API
-- Add option to turn on/off output metrics to InfluxDB test import files
+- Add option to turn on/off output metrics to InfluxDB text import files
 
 
