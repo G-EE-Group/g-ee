@@ -5,14 +5,6 @@ import time
 import requests
 from influxdb import InfluxDBClient
 
-# Declare webdriver options
-options = webdriver.ChromeOptions()
-options.add_experimental_option("excludeSwitches",["ignore-certificate-errors"])
-options.add_argument('--disable-gpu')
-options.add_argument('--headless')
-driver = webdriver.Chrome(options=options, executable_path=r'C:\chromedriver.exe')
-print("Webdriver options declared")
-
 # Read configuration file
 mylines = []
 with open ('config.ini', 'rt') as myfile:
@@ -28,7 +20,12 @@ Database_Name = (mylines[5])
 Authenticate = (mylines[6])
 InfluxDB_Username = (mylines[7])
 InfluxDB_Password = (mylines[8])
+Chromedriver_Location = (mylines[9])
+Chromedriver_State_Headless = (mylines[10])
 
+Chromedriver_State_Headless = Chromedriver_State_Headless.replace('Run Chromedriver in headless mode?: ', '')
+Chromedriver_State_Headless = Chromedriver_State_Headless.replace('\n', '')
+Chromedriver_State_Headless = Chromedriver_State_Headless.replace('\t', '')
 Authenticate = Authenticate.replace('Authenticate With Influx?: ', '')
 Authenticate = Authenticate.replace('\n', '')
 Authenticate = Authenticate.replace('\t', '')
@@ -50,6 +47,12 @@ InfluxDB_Port_Number = InfluxDB_Port_Number.replace('\t', '')
 Database_Name = Database_Name.replace('Database Name: ', '')
 Database_Name = Database_Name.replace('\n', '')
 Database_Name = Database_Name.replace('\t', '')
+Chromedriver_Location = Chromedriver_Location.replace('Chromedriver location: ', '')
+Chromedriver_Location = Chromedriver_Location.replace('\n', '')
+Chromedriver_Location = Chromedriver_Location.replace('\t', '')
+Chromedriver_Location = ('"' + Chromedriver_Location + '"')
+print("Chromedriver location: " + Chromedriver_Location)
+print("Chrome state headless?: " + Chromedriver_State_Headless)
 
 # Check if InfluxDB authentication is required
 if Authenticate == "true":
@@ -65,6 +68,19 @@ elif Authenticate == "false":
     InfluxDB_Password = ''
     print("This server DOES NOT require authentication.")
 
+# Declare webdriver options
+options = webdriver.ChromeOptions()
+options.add_experimental_option("excludeSwitches", ["ignore-certificate-errors"])
+# Check if Chromedriver is configured to run in Headless mode or not
+if Chromedriver_State_Headless == "true":
+    options.add_argument("--headless")
+    print("Chromedriver configured to run in headless mode")
+options.add_argument('--disable-gpu')
+driver = webdriver.Chrome(options=options, executable_path=[Chromedriver_Location])
+print("Webdriver options declared")
+print(Chromedriver_State_Headless)
+print(driver)
+
 # Print config file variables
 print("AT&T username: " + ATT_Username)
 print("AT&T password redacted for security")
@@ -75,6 +91,7 @@ print("Database name: " + Database_Name)
 print("InfluxDB username: " + InfluxDB_Username)
 print("InfluxDB password redacted for security")
 print("Using authentication? " + Authenticate)
+print("Chromedriver located: " + Chromedriver_Location)
 
 # Log into and scrape the AT&T website
 driver.implicitly_wait(10)
@@ -205,3 +222,4 @@ print("InfluxAPI request sent and accepted.")
 print("Job complete.")
 
 driver.quit()
+
