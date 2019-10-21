@@ -19,6 +19,7 @@ with open ('config.ini', 'rt') as myfile:
     for myline in myfile:
         mylines.append(myline)
 
+# Define config.ini lines and declare variables
 ATT_Username = (mylines[0])
 ATT_Password = (mylines[1])
 ATT_Account_Number = (mylines[2])
@@ -31,6 +32,7 @@ InfluxDB_Password = (mylines[8])
 Chromedriver_Location = (mylines[9])
 Chromedriver_State_Headless = (mylines[10])
 
+# Strip variable of extraneous text
 Chromedriver_State_Headless = Chromedriver_State_Headless.replace('Run Chromedriver in headless mode?: ', '')
 Chromedriver_State_Headless = Chromedriver_State_Headless.replace('\n', '')
 Chromedriver_State_Headless = Chromedriver_State_Headless.replace('\t', '')
