@@ -153,25 +153,26 @@ attAmountDue = int(attAmountDue)
 attBandwidthUsed = attBandwidthUsed[:attBandwidthUsed.index('.')]
 attBandwidthUsed = int(attBandwidthUsed)
 
+print(attAmountDue)
+print(attBandwidthUsed)
+print(attDueDate)
+
 print("Configuring JSON output")
 # Configure JSON output for InfluxDB
-json_body = [
+json_body_1 = [
     {
-        "measurement": "ATT_Due",
+        "measurement": "ATT_Amount_Due",
         "tags": {
             "host": "AT&T"
         },
         "fields": {
             "value": attAmountDue
-        },
-        "measurement": "ATT_Due_Date",
-        "tags": {
-            "host": "AT&T"
-        },
-        "fields": {
-            "value": attDueDate
-        },
-        "measurement": "ATT_Data_Usage",
+        }
+    }
+]
+json_body_2 = [
+    {
+        "measurement": "ATT_Bandwidth_Used",
         "tags": {
             "host": "AT&T"
         },
@@ -180,12 +181,25 @@ json_body = [
         }
     }
 ]
+json_body_3 = [
+    {
+        "measurement": "ATT_Date_Due",
+        "tags": {
+            "host": "AT&T"
+        },
+        "fields": {
+            "value": attDueDate
+        }
+    }
+]
 
 # Post metrics to InfluxDB API
 print("Connecting to InfluxDB API")
 client = InfluxDBClient(InfluxDB_IP_Address, InfluxDB_Port_Number, InfluxDB_Username, InfluxDB_Password, Database_Name)
-client.write_points(json_body)
-result = client.query('select value from cpu_load_short;')
+client.write_points(json_body_1)
+client.write_points(json_body_2)
+client.write_points(json_body_3)
+result = client.query('select value from ATT_Bandwidth_Used;')
 
 print("InfluxAPI request sent and accepted.")
 print("Job complete.")
