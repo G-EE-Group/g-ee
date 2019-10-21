@@ -69,7 +69,7 @@ To:
 
 ## Planned features
 
-- Add option in Config.ini to change debug logging level to Debug, Info, Warn or Error
+- Add option in Config.ini to change debug logging level to Debug, Info, Warn, Error or Fatal
 - Add option to turn on/off e-mail metrics to e-mail address
 - Add option to turn on/off send metrics to InfluxDB API
 - Add option to turn on/off output metrics to InfluxDB text import files
