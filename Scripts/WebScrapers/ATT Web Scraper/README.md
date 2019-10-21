@@ -44,7 +44,7 @@ You will need to download Chromedrive and copy it to the root of your C:\ drive.
 Change the file tree location for your Chromedriver executable on line 13:  
 `driver = webdriver.Chrome(options=options, executable_path=r'C:\chromedriver.exe')`
 
-[Download the Chromedriver](https://chromedriver.chromium.org/downloads)
+[Download Chromedriver from the Chromium Project](https://chromedriver.chromium.org/downloads)
 
 ## Disable Chromedriver headless mode
 
