@@ -51,11 +51,25 @@ att_amount_due.txt
 att_data_used.txt  
 att_due_date.txt  
   
-These import files can be used to deposit metrics into InfluxDB via command line.  
-  
+These import files can be used to deposit metrics into InfluxDB via command line.
+
+## Logging  
+
+Current log output to scraper.log is at level "INFO". To change this setting, go into the script and on lines 18 and 19 adjust the following (Depending on what logging level you need):  
+
+Line 18: `level=logging.INFO`
+To:
+Line 18: `level=logging.DEBUG`, or `level=logging.WARNING`, or `level=logging.ERROR`, or `level=logging.FATAL`
+
+And change:
+
+Line 19: `LOGGER.setLevel(logging.WARNING)`
+To:
+`LOGGER.setLevel(logging.DEBUG)` or, `LOGGER.setLevel(logging.INFO)` or, `LOGGER.setLevel(logging.ERROR)`, or `LOGGER.setLevel(logging.FATAL)`
+
 ## Planned features
 
-- Add logging option for isolation, diagnostics and metrics history
+- Add option in Config.ini to change debug logging level to Debug, Info, Warn or Error
 - Add option to turn on/off e-mail metrics to e-mail address
 - Add option to turn on/off send metrics to InfluxDB API
 - Add option to turn on/off output metrics to InfluxDB text import files
