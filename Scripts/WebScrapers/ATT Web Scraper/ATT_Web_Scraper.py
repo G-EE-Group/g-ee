@@ -1,10 +1,10 @@
-*******************************************************************
-* Created by Cameron McCloskey (2019)                             *
-* Hosted at https://github.com/alexandzors/g-ee                   *
-* Created for Grafana - Experts Exchange Facebook group           *
-* G-EE URL: https://www.facebook.com/groups/grafanaexchange/      *
-* Author's URL: https://www.facebook.com/darkhat.me               *
-*******************************************************************
+# *******************************************************************
+# * Created by Cameron McCloskey (2019)                             *
+# * Hosted at https://github.com/alexandzors/g-ee                   *
+# * Created for Grafana - Experts Exchange Facebook group           *
+# * G-EE URL: https://www.facebook.com/groups/grafanaexchange/      *
+# * Author's URL: https://www.facebook.com/darkhat.me               *
+# *******************************************************************
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
